@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1715212966 source:d:\codeblock c++\bertinat_ezequiel\bertinat_ezequiel.cpp
+	<iostream>
+	<cstring>
+	<string>
+	"../parcialm1.h"
+
+1715213163 d:\codeblock c++\parcialm1.h
+
+1715556169 source:d:\codeblock c++\modelo parcial\prog2_p1\bertinat_ezequiel.cpp
+	<iostream>
+	<cstring>
+	<string>
+	"parcialm1.h"
+	"funciones.h"
+
+1715542150 d:\codeblock c++\modelo parcial\prog2_p1\parcialm1.h
+
+1715555517 d:\codeblock c++\modelo parcial\prog2_p1\funciones.h
+
