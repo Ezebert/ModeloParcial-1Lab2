@@ -218,14 +218,12 @@ public:
     void Mostrar(){
       //  cout<<"Nro de Compra \t:"<<numeroCompra<<endl;
         cout<<"Nro de Proveedor:"<<numeroProveedor<<endl;
-       /*
         cout<<"Cod Materia:\t "<<codigoMaterial<<endl;
         cout<<"Cod Obra:\t "<<codigoObra<<endl;
         cout<<"Cantidad:\t "<<cantidad<<endl;
         cout<<"Imp:\t\t "<<importe<<endl;
         cout<<"Fecha:\t\t ";fechaCompra.Mostrar();
         if(!activo) cout<<"ESTA BORRADO"<<endl;
-            */
         cout<<"--------------------------"<<endl;
     }
     int getNumeroCompra(){return numeroCompra;}

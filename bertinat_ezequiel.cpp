@@ -20,17 +20,47 @@ void punto_B();
 
 int main()
 {
-    ArchivoProveedores archi("proveedores.dat");
-    Proveedor reg;
+/*
+    Compra reg;
+    ArchivoCompras archi("compras.dat");
+  */
+
+    Material reg;
+    ArchivoMateriales archi("materiales.dat");
+
     int cont=archi.contarRegistros();
     for(int i=0;i<cont;i++){
         reg=archi.leerRegistro(i);
         reg.Mostrar();
-        //cout<<" \n";
     }
-//500 - 1500
-    punto_5();
+    punto_1();
 }
+///a1) Para cada material la cantidad de
+///compras que se hayan realizado entre
+/// todas las compras.
+int contarCompras(int cod_mat){ // Compras puede tener varias compras con el mismo material
+    Compra reg;
+    ArchivoCompras archi("compras.dat");
+    int contReg = archi.contarRegistros();
+    int cont=0;
+    for(int i =0;i<contReg;i++){
+        reg = archi.leerRegistro(i);
+        if(cod_mat == reg.getCodigoMaterial())// Codigo Material de compras.dat = material.dat
+            cont++;
+    }
+    return cont;
+}
+void punto_1(){ // 1 2 3 4 5 6 (son unicos)
+    Material reg;
+    ArchivoMateriales archi("materiales.dat");
+    int contadorReg =archi.contarRegistros();
+    int contarMaterias[contadorReg]={0};
+    for(int i = 0;i<contadorReg;i++){//recorrer mat
+        contarMaterias[i]=contarCompras(reg.getCodigoMaterial());
+        cout<<"Contar Materias "<<contarMaterias[i]<<endl;
+    }
+}
+
 class clsObrasEnEjecucion{
 public:
     char codigoObra[5];
