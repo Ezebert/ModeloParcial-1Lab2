@@ -47,6 +47,7 @@ private:
     int provincia;
     float superficie;
     int estadoEjecucion;
+
     bool activo;
 public:
     void Cargar(){

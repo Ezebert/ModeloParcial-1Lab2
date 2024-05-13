@@ -17,6 +17,17 @@ public:
         fclose(p);
         return escribio;
     }
+
+    bool modificarRegistro(clsArchivo obj, int nroReg) { /// MODIFICA un Registro
+    FILE* p = fopen(nombre, "rb+");
+    if (p == NULL) {
+        return false;
+    }
+    fseek(p, nroReg * sizeof(clsArchivo), SEEK_SET);
+    bool ok = fwrite(&obj, sizeof(clsArchivo), 1, p);
+    fclose(p);
+    return ok;
+    }
     clsArchivo leerRegistro(int pos) {///Leer Archivo
         clsArchivo reg;
         reg.setNumeroPasajero(-1);
@@ -52,16 +63,7 @@ public:
         fclose(p);
         return true;
     }
-    bool modificarRegistro(clsArchivo obj, int nroReg) { /// MODIFICA un Registro
-        FILE* p = fopen(nombre, "rb+");
-        if (p == NULL) {
-            return false;
-        }
-        fseek(p, nroReg * sizeof(clsArchivo), SEEK_SET);
-        bool ok = fwrite(&obj, sizeof(clsArchivo), 1, p);
-        fclose(p);
-        return ok;
-    }
+
     void vaciar(){ ///Vacia
         FILE *p = fopen(nombre, "wb");
         if (p == NULL){return ;}

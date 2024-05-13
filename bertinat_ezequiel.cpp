@@ -20,14 +20,16 @@ void punto_B();
 
 int main()
 {
+    punto_6();
 
     int cont;
-/*
+
     Compra reg;
     ArchivoCompras archi("compras.dat");
+/*
+    proveedor reg;
+    archivoproveedores archi("proveedores.dat");
 */
-    Proveedor reg;
-    ArchivoProveedores archi("proveedores.dat");
     cont=archi.contarRegistros();
     for(int i=0;i<cont;i++){
         reg=archi.leerRegistro(i);
@@ -35,7 +37,31 @@ int main()
     }
 
 
-    punto_2();
+
+}
+/// a6) Dar de baja lógica a todas las compras del año 2020.
+    bool modificarRegistro(Compra obj, int nroReg) { /// MODIFICA un Registro
+    FILE* p = fopen("compras.dat", "rb+");
+    if (p == NULL) {
+        return false;
+    }
+    fseek(p, nroReg * sizeof(Compra), SEEK_SET);
+    bool ok = fwrite(&obj, sizeof(Compra), 1, p);
+    fclose(p);
+    return ok;
+    }
+void punto_6(){
+    ArchivoCompras archi("compras.dat");
+    Compra reg;
+    int cont=archi.contarRegistros();
+    for(int i =0;i<cont;i++){
+        reg= archi.leerRegistro(i);
+        if(reg.getFechaCompra().getAnio()==2022){
+          //  reg.getFechaCompra().Cargar();
+            reg.setActivo(false);
+            modificarRegistro(reg,i);
+           }
+    }//Fin del For
 }
 ///El nombre del proveedor que mayor importe haya obtenido entre todas las compras que se le realizaron.
 void punto_2(){
@@ -114,7 +140,7 @@ public:
     };//Fin de clase ObraEjecucion
 bool grabarObrasEjecucion(clsObrasEnEjecucion reg) { ///GrabarArchivo
         FILE* p;
-        p = fopen("obrasEjec", "ab");
+        p = fopen("obrasEjec.dat", "ab");
         if(p == NULL) return false;
         bool escribio = fwrite(&reg, sizeof reg, 1, p);
         fclose(p);
