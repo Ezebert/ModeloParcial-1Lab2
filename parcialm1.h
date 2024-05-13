@@ -216,14 +216,16 @@ public:
     }
 
     void Mostrar(){
-        cout<<"Nro de Compra \t:"<<numeroCompra<<endl;
+      //  cout<<"Nro de Compra \t:"<<numeroCompra<<endl;
         cout<<"Nro de Proveedor:"<<numeroProveedor<<endl;
+       /*
         cout<<"Cod Materia:\t "<<codigoMaterial<<endl;
         cout<<"Cod Obra:\t "<<codigoObra<<endl;
         cout<<"Cantidad:\t "<<cantidad<<endl;
         cout<<"Imp:\t\t "<<importe<<endl;
         cout<<"Fecha:\t\t ";fechaCompra.Mostrar();
         if(!activo) cout<<"ESTA BORRADO"<<endl;
+            */
         cout<<"--------------------------"<<endl;
     }
     int getNumeroCompra(){return numeroCompra;}
@@ -296,10 +298,11 @@ public:
     }
     void Mostrar(){
         cout<<"NRO PROV: " <<numeroProveedor<<endl;
-        cout<<"PROVINCIA :"<<provincia<<endl;
-        cout<<nombre<<endl;
+        cout<<"PROVINCIA :"<<provincia<<endl<<endl;
+        /*cout<<nombre<<endl;
         cout<<telefono<<endl;
         cout<<direccion<<endl;
+        */
         if(!activo) cout<<"ESTA BORRADO"<<endl<<endl;
 
     }

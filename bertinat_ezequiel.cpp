@@ -20,16 +20,16 @@ void punto_B();
 
 int main()
 {
-    ArchivoMateriales archi;
-    Material reg;
+    ArchivoProveedores archi("proveedores.dat");
+    Proveedor reg;
     int cont=archi.contarRegistros();
     for(int i=0;i<cont;i++){
         reg=archi.leerRegistro(i);
         reg.Mostrar();
-        cout<<" \n";
+        //cout<<" \n";
     }
 //500 - 1500
-    punto_7();
+    punto_5();
 }
 class clsObrasEnEjecucion{
 public:
@@ -92,10 +92,29 @@ void punto_7(){
     int contadorReg = archi.contarRegistros();
     for(int i =0;i<contadorReg;i++){ //Recorrer Obras
             reg=archi.leerRegistro(i);
-            if(reg.getTipo()==1650){//Abertura = 3
+            if(reg.getTipo()==3){//Abertura = 3
                 reg.setPU(reg.getPU()*1.10);
                 modificarRegistro(reg,i);
                 cout<<"Registro Mod: "<<reg.getPU()<<endl;
             }
     }// Fin del For Leer Reg
+}
+///La/s provincia/s con más de 22 proveedore
+void punto_5(){
+    ArchivoProveedores archi("proveedores.dat");
+    Proveedor reg;
+    int cont=archi.contarRegistros();
+
+    int contProv[24]={0};//Inicializo en cero
+
+    for(int i=0;i<cont;i++){
+        reg=archi.leerRegistro(i);
+        contProv[reg.getProvincia()-1]++;// ++ = +1
+    }
+    for(int i=0;i<24;i++){
+        //if(contProv[i]>1)
+        if(contProv[i]>22)
+            cout << "Prov tiene mas de 22 Prov: "<<i+1;
+    }
+
 }
