@@ -15,73 +15,24 @@ void punto_4();
 void punto_5();
 void punto_6();
 void punto_7();
-void punto_8();
-void punto_9();
+void punto_A();
+void punto_B();
 
 int main()
 {
-    int v[5]={3,1,22,6,2};
-    cout<<buscarPosMin(v,5);
-    //ArchivoProveedores archi("proveedores.dat");
-    Compra reg;
-
-   // reg.Mostrar();
-    /*
-    int cont = archi.contarRegistros();
-    for(int i = 0 ;i <= cont ; i++){
+    ArchivoMateriales archi;
+    Material reg;
+    int cont=archi.contarRegistros();
+    for(int i=0;i<cont;i++){
         reg=archi.leerRegistro(i);
         reg.Mostrar();
+        cout<<" \n";
     }
-    cout<<" ============"<<endl;
-    punto_2();
-    */
-    }
-///DAR LA BAJA LOGICA DELL AÑO 2020
-bool modificarRegistro(Compra obj, int nroReg) {
-        FILE* p = fopen("compras.dat", "rb+");
-        if (p == NULL) {            return false;        }
-        fseek(p, nroReg * sizeof(Compra), SEEK_SET);
-        bool ok = fwrite(&obj, sizeof(Compra), 1, p);
-        fclose(p);
-        return ok;
+//500 - 1500
+    punto_7();
 }
-void punto_6(){
-    ArchivoCompras archi("compras.dat");
-    Compra reg;
-    int cont = archi.contarRegistros();
-    for(int i = 0 ; i< cont;i++){
-        reg= archi.leerRegistro(i);
-        if(reg.getFechaCompra().getAnio()==2022)
-            reg.setActivo(false);
-            modificarRegistro(reg,i);
-        }
-}
-
-bool grabarObrasEjecucion(Material reg){
-    FILE *p;
-    p=fopen("ObrasEjecucion.dat","RB+");
-    //crequeo
-    if(p==NULL) return false;
-    bool resp = fwrite(&reg, sizeof (reg),1,p);
-    fclose(p);
-}
-void punto_7(){
-    ArchivoMateriales archi("materiales.dat");
-    int cont = archi.contarRegistros();
-    for(int i=0;i<cont;i++){
-        if(archi.leerRegistro(i).getTipo()==3){
-            archi.leerRegistro(i).setPU(archi.leerRegistro(i).getPU()*1.10);
-            //grabarMaterias(archi.ArchivoMateriales(i));
-        }
-    }
-}
-
-
-///Generar un archivo con el código de obra,
-/// la dirección y la provincia, de las obras cuyo
-///estado de ejecución sea "en ejecución".
-class ObraEjecucion{
-private:
+class clsObrasEnEjecucion{
+public:
     char codigoObra[5];
     char direccion[30];
     int provincia;
@@ -91,78 +42,60 @@ public:
     void setDireccion(const char *d){strcpy(direccion,d);}
     void setProvincia(int p){provincia=p;}
     void setActivo(bool a){activo=a;}
+    void Mostrar(){
+        cout<<" OBRAS EN EJECION" <<endl;
+        cout<<codigoObra<<endl;
+        cout<<direccion<<endl;
+    }
+
     };//Fin de clase ObraEjecucion
+bool grabarObrasEjecucion(clsObrasEnEjecucion reg) { ///GrabarArchivo
+        FILE* p;
+        p = fopen("obrasEjec", "ab");
+        if(p == NULL) return false;
+        bool escribio = fwrite(&reg, sizeof reg, 1, p);
+        fclose(p);
+        return escribio;
+    }
+void punto_A(){
+    clsObrasEnEjecucion aux;
 
-bool grabarObrasEjecucion(ObraEjecucion reg){
-    FILE *p;
-    p=fopen("ObrasEjecucion.dat","AB");
-    //crequeo
-    if(p==NULL) return false;
-    bool resp = fwrite(&reg, sizeof (reg),1,p);
-    fclose(p);
-    return resp;
-}
-void punto_1(){
-    ArchivoObras archi("obras.dat");
     Obra reg;
-    //Obras en Ejecuccion
-    ObraEjecucion aux;
-    //ArchivoObrasEjecucion ("obrasEjecion.dat");
-
-    for(int i=0;i<archi.contarRegistros();i++){//recorrer
-        reg=archi.leerRegistro(i); //leer Registro
-        if(reg.getEstadoEjecucion()==4){
-
+    ArchivoObras archi("obras.dat");
+    int contadorReg = archi.contarRegistros();
+    for(int i =0;i<contadorReg;i++){ //Recorrer Obras
+        if(reg.getEstadoEjecucion()==3){//3 = Obras En Ejecucion
+            //Guardamos los datos que necesitamos
             aux.setCodigoObra(reg.getCodigoObra());
             aux.setDireccion(reg.getDireccion());
             aux.setProvincia(reg.getProvincia());
             aux.setActivo(true);
-            FILE *p;
-            p=fopen("ObrasEjecucion.dat","AB");
-            fwrite(&aux, sizeof (aux),1,p);
-            fclose(p);
+            aux.Mostrar();
+            grabarObrasEjecucion(aux);
 
         }
     }
 
 }
-///La provincia con menos proveedores (ignorando las provincias sin proveedores).
-
-/*  PROVEDOR
-    int numeroProveedor;
-    char nombre[30];
-    char telefono[30];
-    char direccion[30];
-    int provincia;
-    bool activo;
-    */
-int menorProveedores(int *v, int tam){
-    int menor,posMin;
-    for(int i =0;i<tam;i++){
-        if(i==0){
-            menor=v[i];
-            posMin=i;
-        }
-        else if(v[i]<menor){
-            menor = v[i];
-            posMin=i;
-        }
-
+///MOd Aberturas el precio*1.10
+bool modificarRegistro(Material obj, int nroReg) { /// MODIFICA un Registro
+        FILE* p = fopen("materiales.dat", "rb+");
+        if (p == NULL) {            return false;        }
+        fseek(p, nroReg * sizeof(Material), SEEK_SET);
+        bool ok = fwrite(&obj, sizeof(Material), 1, p);
+        fclose(p);
+        return ok;
     }
-    return posMin;
+void punto_7(){
+    Material reg;
+    ArchivoMateriales archi("materiales.dat");
+    int contadorReg = archi.contarRegistros();
+    for(int i =0;i<contadorReg;i++){ //Recorrer Obras
+            reg=archi.leerRegistro(i);
+            if(reg.getTipo()==1650){//Abertura = 3
+                reg.setPU(reg.getPU()*1.10);
+                modificarRegistro(reg,i);
+                cout<<"Registro Mod: "<<reg.getPU()<<endl;
+            }
+    }// Fin del For Leer Reg
 }
-
-void punto_2(){
-
-    ArchivoProveedores archi("proveedores.dat");
-    int contProv[24]={0};
-    for(int i=0;i<archi.contarRegistros();i++){
-        contProv[archi.leerRegistro(i).getProvincia()-1]++;
-    }
-    cout<<"PROVINCIA CON MENOS PROVEDORES "<< menorProveedores(contProv,24)<<endl;;
-
-
-
-}
-
-

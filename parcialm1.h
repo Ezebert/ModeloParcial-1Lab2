@@ -138,8 +138,8 @@ public:
         cout<<codigoMaterial<<endl;
         cout<<nombre<<endl;
         cout<<marca<<endl;
-        cout<<tipo<<endl;
-        cout<<pu<<endl;
+        cout<<"Tipo: "<<tipo<<endl;
+        cout<<"PRECIO: "<<pu<<endl;
         if(!activo) cout<<"ESTA BORRADO"<<endl<<endl;
     }
     int getCodigoMaterial(){return codigoMaterial;}
@@ -164,6 +164,9 @@ private:
 public:
     ArchivoMateriales(const char *n){
         strcpy(nombre, n);
+    }
+    ArchivoMateriales(){
+        strcpy(nombre, "materiales.dat");
     }
     Material leerRegistro(int pos){
         Material reg;
@@ -213,15 +216,15 @@ public:
     }
 
     void Mostrar(){
-        cout<<numeroCompra<<endl;
-        cout<<numeroProveedor<<endl;
-        cout<<codigoMaterial<<endl;
-        cout<<codigoObra<<endl;
-        cout<<cantidad<<endl;
-        cout<<importe<<endl;
-        fechaCompra.Mostrar();
-        cout<<endl;
-        if(!activo) cout<<"ESTA BORRADO"<<endl<<endl;
+        cout<<"Nro de Compra \t:"<<numeroCompra<<endl;
+        cout<<"Nro de Proveedor:"<<numeroProveedor<<endl;
+        cout<<"Cod Materia:\t "<<codigoMaterial<<endl;
+        cout<<"Cod Obra:\t "<<codigoObra<<endl;
+        cout<<"Cantidad:\t "<<cantidad<<endl;
+        cout<<"Imp:\t\t "<<importe<<endl;
+        cout<<"Fecha:\t\t ";fechaCompra.Mostrar();
+        if(!activo) cout<<"ESTA BORRADO"<<endl;
+        cout<<"--------------------------"<<endl;
     }
     int getNumeroCompra(){return numeroCompra;}
     int getNumeroproveedor(){return numeroProveedor;}

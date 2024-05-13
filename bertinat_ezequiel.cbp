@@ -34,6 +34,7 @@
 		</Compiler>
 		<Unit filename="bertinat_ezequiel.cpp" />
 		<Unit filename="clsArchivo.H" />
+		<Unit filename="funciones.h" />
 		<Unit filename="parcialm1.h" />
 		<Extensions />
 	</Project>
