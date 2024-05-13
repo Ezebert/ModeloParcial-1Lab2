@@ -20,25 +20,57 @@ void punto_B();
 
 int main()
 {
+
+    int cont;
 /*
     Compra reg;
     ArchivoCompras archi("compras.dat");
-  */
-
-    Material reg;
-    ArchivoMateriales archi("materiales.dat");
-
-    int cont=archi.contarRegistros();
+*/
+    Proveedor reg;
+    ArchivoProveedores archi("proveedores.dat");
+    cont=archi.contarRegistros();
     for(int i=0;i<cont;i++){
         reg=archi.leerRegistro(i);
         reg.Mostrar();
     }
-    punto_1();
+
+
+    punto_2();
 }
-///a1) Para cada material la cantidad de
-///compras que se hayan realizado entre
-/// todas las compras.
-int contarCompras(int cod_mat){ // Compras puede tener varias compras con el mismo material
+///El nombre del proveedor que mayor importe haya obtenido entre todas las compras que se le realizaron.
+void punto_2(){
+    ArchivoProveedores archi("proveedores.dat");
+    ArchivoCompras archiAux("compras.dat");
+
+    Proveedor reg;
+    Compra aux;
+
+    int cont = archi.contarRegistros();
+    int auxCont = archiAux.contarRegistros();
+
+    int sumaProv[cont] ={0};
+    int posMax;
+
+    for(int i =0;i<cont;i++){
+        reg= archi.leerRegistro(i);
+        cout<<endl<<reg.getNombre();
+        for(int j =0;j<auxCont;j++){
+            aux=archiAux.leerRegistro(j);
+            if(reg.getNumeroProveedor()==aux.getNumeroproveedor()){
+                //cout<<" \t Importe: " <<aux.getImporte();
+                sumaProv[i]+=aux.getImporte();
+            }
+            if(i==0) posMax = i;
+            if(sumaProv[posMax]<sumaProv[i])
+                posMax=i;
+        }//fin for J
+
+    }//Fin I
+    cout<<endl<<"RESULTADO: "<< archi.leerRegistro(posMax).getNombre();
+
+}
+///a1) Para cada material la cantidad de compras que se hayan realizado entre todas las compras.
+int contarComprasMaterial(int cod_mat){ // Compras puede tener varias compras con el mismo material
     Compra reg;
     ArchivoCompras archi("compras.dat");
     int contReg = archi.contarRegistros();
@@ -55,12 +87,13 @@ void punto_1(){ // 1 2 3 4 5 6 (son unicos)
     ArchivoMateriales archi("materiales.dat");
     int contadorReg =archi.contarRegistros();
     int contarMaterias[contadorReg]={0};
+
     for(int i = 0;i<contadorReg;i++){//recorrer mat
-        contarMaterias[i]=contarCompras(reg.getCodigoMaterial());
+        contarMaterias[i]=contarComprasMaterial(reg.getCodigoMaterial());
         cout<<"Contar Materias "<<contarMaterias[i]<<endl;
     }
 }
-
+///Crear un archivo con las obras en Ejecucion
 class clsObrasEnEjecucion{
 public:
     char codigoObra[5];

@@ -296,9 +296,9 @@ public:
     }
     void Mostrar(){
         cout<<"NRO PROV: " <<numeroProveedor<<endl;
-        cout<<"PROVINCIA :"<<provincia<<endl<<endl;
-        /*cout<<nombre<<endl;
-        cout<<telefono<<endl;
+        cout<<"PROVINCIA :"<<provincia<<endl;
+        cout<<"NOMBRE: "<<nombre<<endl;
+        /*cout<<telefono<<endl;
         cout<<direccion<<endl;
         */
         if(!activo) cout<<"ESTA BORRADO"<<endl<<endl;
